@@ -51,7 +51,6 @@ def part_two_exploration(instructions, nodes):
 
     for label in starting_labels:
         found_z = None
-        current_cycle = []
         current_cycle_steps = 0
         current_cycle_instructions = instructions
 
@@ -60,8 +59,6 @@ def part_two_exploration(instructions, nodes):
                 current_cycle_steps += 1
                 label = nodes[label][current_cycle_instructions[0]]
                 current_cycle_instructions = current_cycle_instructions[1:] + [current_cycle_instructions[0]]
-
-            current_cycle.append(current_cycle_steps)
 
             if found_z is None:
                 found_z = label
