@@ -22,8 +22,7 @@ def read_input_file():
             for x, loss in enumerate(row)}
 
 
-def part_one(grid, length, max_streak):
-    end_point = (length - 1) + (length - 1) * 1j
+def part_one(grid, end_point, max_streak):
     visited = set()  # (position, direction, streak)
     pq = PriorityQueue()  # (cost, position, direction, streak)
     pq.put(CrucibleState(grid[0 + 1j], 1j, 1j, 1))
@@ -44,8 +43,7 @@ def part_one(grid, length, max_streak):
                 pq.put(CrucibleState(cost + grid[new_position], new_position, direction, 1))
 
 
-def part_two(grid, length, min_streak, max_streak):
-    end_point = (length - 1) + (length - 1) * 1j
+def part_two(grid, end_point, min_streak, max_streak):
     visited = set()  # (position, direction, streak)
     pq = PriorityQueue()  # (cost, position, direction, streak)
     pq.put(CrucibleState(grid[0 + 1j], 1j, 1j, 1))
@@ -72,10 +70,11 @@ if __name__ in "__main__":
 
     heat_loss_grid = read_input_file()
     grid_length = int(sqrt(len(heat_loss_grid)))
+    destination = (grid_length - 1) + (grid_length - 1) * 1j
 
     st = time()
-    p1 = part_one(heat_loss_grid, grid_length, 3)
-    p2 = part_two(heat_loss_grid, grid_length, 4, 10)
+    p1 = part_one(heat_loss_grid, destination, 3)
+    p2 = part_two(heat_loss_grid, destination, 4, 10)
+    print(f"Execution Time: {time() - st} seconds.")
     print(f"Part 1: {p1}")
     print(f"Part 2: {p2}")
-    print(f"Execution Time: {time() - st} seconds.")
