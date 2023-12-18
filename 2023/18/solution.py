@@ -2,7 +2,11 @@ def read_input_file():
     return [tuple(line.split()) for line in open('input.txt').read().splitlines()]
 
 
-def greens_theorem(tuples_list):
+def shoelace_theorem(tuples_list):
+    """
+    Apply Shoelace Theorem to list of dig plan instructions.
+    Info: https://artofproblemsolving.com/wiki/index.php/Shoelace_Theorem
+    """
     position = 0 + 0j
     area_a, area_b, total_distance = 0, 0, 0
     for direction, distance in tuples_list:
@@ -25,15 +29,13 @@ def greens_theorem(tuples_list):
 def part_one(plan):
     # Parse the plan : (direction, distance)
     instructions = [("RDLU".index(direction), int(distance)) for direction, distance, _ in plan]
-    # Apply Green's Theorem
-    return greens_theorem(instructions)
+    return shoelace_theorem(instructions)
 
 
 def part_two(plan):
     # Parse the plan : (direction, distance)
     instructions = [(int(hex_string[-2]), int(hex_string[2:-2], base=16)) for _, _, hex_string in plan]
-    # Apply Green's Theorem
-    return greens_theorem(instructions)
+    return shoelace_theorem(instructions)
 
 
 if __name__ == "__main__":
