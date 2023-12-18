@@ -36,17 +36,12 @@ def part_one(grid, length, max_streak):
         cost, position, direction, streak = crucible.as_tuple()
         if position == end_point and streak <= max_streak:
             return crucible.cost
-        new_position = position + direction
-        if streak < max_streak and new_position in grid:
+        if streak < max_streak and (new_position := position + direction) in grid:
             pq.put(CrucibleState(cost + grid[new_position], new_position, direction, streak + 1))
-        direction *= 1j
-        if position + direction in grid:
-            new_position = position + direction
-            pq.put(CrucibleState(cost + grid[new_position], new_position, direction, 1))
-        direction *= -1
-        if position + direction in grid:
-            new_position = position + direction
-            pq.put(CrucibleState(cost + grid[new_position], new_position, direction, 1))
+        for change in (1j, -1):
+            direction *= change
+            if (new_position := position + direction) in grid:
+                pq.put(CrucibleState(cost + grid[new_position], new_position, direction, 1))
 
 
 def part_two(grid, length, min_streak, max_streak):
@@ -63,17 +58,12 @@ def part_two(grid, length, min_streak, max_streak):
         cost, position, direction, streak = crucible.as_tuple()
         if position == end_point and streak <= max_streak:
             return crucible.cost
-        new_position = position + direction
-        if streak < max_streak and new_position in grid:
+        if streak < max_streak and (new_position := position + direction) in grid:
             pq.put(CrucibleState(cost + grid[new_position], new_position, direction, streak + 1))
-        direction *= 1j
-        if min_streak <= streak and position + direction in grid:
-            new_position = position + direction
-            pq.put(CrucibleState(cost + grid[new_position], new_position, direction, 1))
-        direction *= -1
-        if min_streak <= streak and position + direction in grid:
-            new_position = position + direction
-            pq.put(CrucibleState(cost + grid[new_position], new_position, direction, 1))
+        for change in (1j, -1):
+            direction *= change
+            if min_streak <= streak and (new_position := position + direction) in grid:
+                pq.put(CrucibleState(cost + grid[new_position], new_position, direction, 1))
 
 
 if __name__ in "__main__":
