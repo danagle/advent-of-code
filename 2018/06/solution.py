@@ -37,7 +37,7 @@ def both_parts(data):
         # Part 2: Area where sum of manhattan distance to all points is less than 10,000
         if sum(p[0] for p in sorted_distances) < 10_000:
             total_area += 1
-    # Get the areas by counting locations closet to each point
+    # Get the areas by counting locations closest to each point
     for point_a, point_b in distances.items():
         if point_b is not None:
             areas[point_b] += 1
